@@ -98,6 +98,7 @@ function alignementSecteur (polygonSecteur, alignementRef, properties) {
         if (pointDansPolygone(entry.geometry.coordinates[0], entry.geometry.coordinates[1], polygonSecteur)) {
             tab.push({
                 properties: entry.properties[properties],
+                rayoncouronne_m: entry.properties.rayoncouronne_m,
                 geometry: {
                     type: "Point",
                     coordinates: [
@@ -158,14 +159,15 @@ function dataVegetal(alignementsRef, polygonSecteur, properties, value) {
         var filtre = alignementSecteur(polygonSecteur, alignementsRef, properties).filter(
             d => d.properties === entry
         );
+        console.log('alignement secteur ', filtre);
         vegetal['nombre'] = filtre.length;
         vegetal['surface'] = Array.from(
             filtre,
             x =>
                 Math.pow(
-                    isNaN(x.properties.rayoncouronne_m)
+                    isNaN(x.rayoncouronne_m)
                         ? 1
-                        : x.properties.rayoncouronne_m,
+                        : x.rayoncouronne_m,
                     2
                 ) * Math.PI
         ).reduce(reducer);
