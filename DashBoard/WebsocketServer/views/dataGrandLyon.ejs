@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <title>Data from Grand Lyon</title>
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h3>Get Data from data.granlyon API</h3>
+        </div>
+
+        <div class="selection">
+            <div class="selection-header">Choix du secteur</div>
+            <div class="selection-body">
+                <div class="input-group">
+                    <p>
+                        <input type="text" class="form-control" id="file" placeholder="nom du fichier">
+                    </p>
+                    <p>
+                        <input type="text" class="form-control" id="url" placeholder="url">
+                    </p>
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button" id="loadBtn">Load</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p><hr align=left /></p>
+        <a class="nav-link" href="/">Retour à l'accueil</a>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/dataGrandLyon.js"></script>
+</body>
+</html>

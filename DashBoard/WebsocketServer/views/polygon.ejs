@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <title>Définition du Polygon de référence</title>
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h3>Choix des coordonnées de référence (EPSG 3946)</h3>
+        </div>
+
+        <div class="selection">
+            <div class="selection-body">
+                <div class="input-group">
+                    <p>
+                        <input type="text" class="form-control" id="left" placeholder="left">
+                        <input type="text" class="form-control" id="right" placeholder="right">
+                    </p>
+                    <p>
+                        <input type="text" class="form-control" id="top" placeholder="top">
+                        <input type="text" class="form-control" id="bottom" placeholder="bottom">
+                    </p>
+                    <p>
+                        <input type="text" class="form-control" id="step" placeholder="step">
+                    </p>
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button" id="selectionBtnCoordinates">Change</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p><hr align=left /></p>
+        <div class="selection">
+            <div class="selection-header">Chargement d'un fichier représentant le polygon.</div>
+            <div class="selection-body">
+                <div class="input-group">
+                    <p>
+                        <input type="file" class="form-control" id="filePolygon" accept=".json">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p><hr align=left /></p>
+        <a class="nav-link" href="/">Retour à l'accueil</a>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/polygon.js"></script>
+</body>
+</html>

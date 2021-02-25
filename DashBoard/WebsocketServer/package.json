@@ -1,0 +1,20 @@
+{
+  "name": "websocket-server",
+  "version": "1.0.0",
+  "description": "websocket server for datagora",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "react": "^17.0.1",
+    "serve-favicon": "^2.5.0",
+    "socketio": "^1.0.0",
+    "util": "^0.12.3",
+    "websocket": "^1.0.33",
+    "ws": "^7.4.3"
+  }
+}
