@@ -19,7 +19,7 @@ const appWS = express();
 const appSite = express();
 
 // routes of the websocket server
-const listeRoutesWebsocket = ['/dataVegetal', '/dataParcsJardins', '/dataGeoLyon', '/dataEspacesVegetalisesPourcentageLyon'];
+const listeRoutesWebsocket = ['/dataPolygon', '/dataVegetal', '/dataParcsJardins', '/dataGeoLyon', '/dataEspacesVegetalisesPourcentageLyon'];
 
 // for CORS
 appSite.use(function (req, res, next) {
@@ -192,7 +192,7 @@ wss_data.on('connection', (ws, request) => {
             console.log("Erreur. Aucun fichier dataEspacesVegetalisesPourcentageLyon n'existe ==> pas d'envoi");
         }
     }
-   if (pathname === '/dataGeoLyon') {
+    if (pathname === '/dataGeoLyon') {
         console.log('new connection on websocket from "' + pathname + '"');
         try {
             if (fs.existsSync('./assets/data/communesLyonWFS84.json')) {
@@ -235,6 +235,16 @@ wss_data.on('connection', (ws, request) => {
         }
         catch (error) {
             console.log("Aucun fichier dataVegetal n'existe ==> pas d'envoi");
+        }
+    }
+    if (pathname === '/dataPolygon') {
+        console.log('new connection on websocket from "' + pathname + '"');
+        try {
+            const dataPolygon = JSON.parse(fs.readFileSync('./assets/data/polygon.json'));
+            ws.send(JSON.stringify({ type: "dataPolygon", value: dataPolygon }));
+        }
+        catch (error) {
+            console.log("Aucun fichier dataPolygon n'existe ==> pas d'envoi");
         }
     }
     if (pathname === '/dataParcsJardins') {
@@ -345,6 +355,13 @@ io.on('connection', (socket) => {
                             ws.send(JSON.stringify({ type: "dataVegetal", value: dataVegetal }));
                         }
                     });
+                }
+            });
+            // for dataPolygon
+            console.log("sending dataPolygon to ws client dataPolygon");
+            wss_data.clients.forEach(function each(ws) {
+                if (tabUsersId[ws.id][1] === '/dataPolygon') {
+                    ws.send(JSON.stringify({ type: "dataPolygon", value: polygonSecteur }));
                 }
             });
             
