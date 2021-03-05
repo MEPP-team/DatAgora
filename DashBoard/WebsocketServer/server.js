@@ -19,7 +19,7 @@ const appWS = express();
 const appSite = express();
 
 // routes of the websocket server
-const listeRoutesWebsocket = ['/dataPolygon', '/dataVegetal', '/dataParcsJardins', '/dataGeoLyon', '/dataEspacesVegetalisesPourcentageLyon'];
+const listeRoutesWebsocket = ['/dataPolygon', '/dataVegetal', '/dataAlignements', '/dataParcsJardins', '/dataGeoLyon', '/dataEspacesVegetalisesPourcentageLyon'];
 
 // for CORS
 appSite.use(function (req, res, next) {
@@ -257,6 +257,16 @@ wss_data.on('connection', (ws, request) => {
             console.log("Aucun fichier dataParcsJardins n'existe ==> pas d'envoi");
         }
     }
+    if (pathname === '/dataAlignements') {
+        console.log('new connection on websocket from "' + pathname + '"');
+        try {
+            const dataAlignements = JSON.parse(fs.readFileSync('./assets/data/dataAlignements.json'));
+            ws.send(JSON.stringify({ type: "dataAlignements", value: dataAlignements }));
+        }
+        catch (error) {
+            console.log("Aucun fichier dataAlignements n'existe ==> pas d'envoi");
+        }
+    }
     //we don't need to send other message than those from the server : at connection and when updating data
     /*ws.on('message', (data) => {
         wss_data.clients.forEach((client) => {
@@ -336,6 +346,24 @@ io.on('connection', (socket) => {
                     wss_data.clients.forEach(function each(ws) {
                         if (tabUsersId[ws.id][1] === '/dataParcsJardins') {
                             ws.send(JSON.stringify({ type: "dataParcsJardins", value: dataParcsJardins }));
+                        }
+                    });
+                }
+            });
+            // for dataAlignements
+            console.log('calcul alignements');
+            const dataAlignements = utils.alignementSecteur(alignementsRef, polygonSecteur, 'genre');
+            fs.writeFile('./assets/data/dataAlignements.json', JSON.stringify(dataAlignements), function (err) {
+                if (err) {
+                    throw err;
+                    console.log("erreur d'écriture des data Alignements")
+                }
+                else {
+                    console.log('Ecriture des dataAlignements');
+                    console.log("sending dataAlignements to ws client dataAlignements");
+                    wss_data.clients.forEach(function each(ws) {
+                        if (tabUsersId[ws.id][1] === '/dataAlignements') {
+                            ws.send(JSON.stringify({ type: "dataAlignements", value: dataAlignements }));
                         }
                     });
                 }
