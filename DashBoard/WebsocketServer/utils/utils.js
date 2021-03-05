@@ -92,9 +92,9 @@ function pointDansPolygone(x, y, polygon) {
 }
 
 // take alignements and its property from data Grandlyon wich are in a given polygon
-function alignementSecteur (polygonSecteur, alignementRef, properties) {
+function alignementSecteur(alignementsRef, polygonSecteur,  properties) {
     var tab = [];
-    alignementRef.features.forEach(function (entry) {
+    alignementsRef.features.forEach(function (entry) {
         if (pointDansPolygone(entry.geometry.coordinates[0], entry.geometry.coordinates[1], polygonSecteur)) {
             tab.push({
                 properties: entry.properties[properties],
@@ -156,7 +156,7 @@ function dataVegetal(alignementsRef, polygonSecteur, properties, value) {
     tabVegetals.forEach(function (entry, index) {
         var vegetal = { type: "", nombre: 0, surface: 0 };
         vegetal['type'] = entry;
-        var filtre = alignementSecteur(polygonSecteur, alignementsRef, properties).filter(
+        var filtre = alignementSecteur(alignementsRef, polygonSecteur, properties).filter(
             d => d.properties === entry
         );
         console.log('alignement secteur ', filtre);
