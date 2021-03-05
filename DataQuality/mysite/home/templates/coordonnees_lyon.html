@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+
+		<FONT face="Calibri"><title> Vérification des coordonnées: LYON Et SES Alentours</title></FONT>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'style.css' %}" />
+
+    </head>
+    <body id="Data">
+        <video id="videoBG" poster="poster.jpg" autoplay muted loop>
+            <source src="../static/Lyon.mp4" type="video/mp4">
+        </video>
+        <div class="wrapper">
+                    <img id="Erasme" src="../static/Grand_Lyon.png">
+        <fieldset>
+            <legend> Insérer le fichier souhaité </legend>
+            <div class="input-data">
+                <input id="Insert" type="text" required value="{{ path1 }}">
+                <div class="underline">
+            </div>
+        <button id="Download" onclick="location.href='coordonnees_lyon_analyse'">Download</button>
+            </fieldset>
+            <fieldset>
+        <br><p>{{ test }}</p>
+                  {% for i in tab_coord %}
+            <p>{{ i }}<br></p>
+        {% endfor %}
+        </fieldset>
+
+            <button id="retour" onclick="location.href='/'">Home</button>
+        </div>
+
+    </body>
+</html>

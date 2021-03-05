@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+
+		<FONT face="Calibri"><title> Vérification des coordonnées</title></FONT>
+        {% load static %}
+<<<<<<< HEAD
+        <link rel="stylesheet" href="../static/style.css" />
+=======
+        <link rel="stylesheet" href="{% static 'style.css' %}" />
+>>>>>>> 1cf1239a7e5c1b9da961763e48d8289e5f0bc15a
+    </head>
+    <body id="Data">
+        <video id="videoBG" poster="poster.JPG" autoplay muted loop>
+            <source src="../static/Lyon.mp4" type="video/mp4">
+        </video>
+        <div class="wrapper">
+                    <img id="Erasme" src="../static/Grand_Lyon.png">
+        <fieldset>
+            <legend> Insérer le fichier souhaité </legend>
+            <div class="input-data">
+                <input id="Insert" type="text" required value="{{ name }}">
+                <div class="underline">
+            </div>
+        <button id="Download" onclick="location.href='script'">Download</button>
+        </fieldset>
+        <fieldset>
+
+        <legend> Insérer le fichier contenant les codes insee et les coordonnées des polygones </legend>
+            <div class="input-data">
+                <input id="Insert" type="text" required value="{{ name }}">
+                <div class="underline">
+            </div>
+        <button id="Download" onclick="location.href='script'">Download</button>
+        </fieldset>
+        </wrapper>
+    <div>
+        <fieldset>
+        <!-- Dans cette section, tu fais le code qui fait le truc des coordonnées -->
+        </fieldset>
+        <button id="retour" onclick="location.href='/'">Home</button>
+    </div>
+    </body>
+</html>

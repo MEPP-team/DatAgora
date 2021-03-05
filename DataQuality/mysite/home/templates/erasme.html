@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+
+		<FONT face="Calibri"><title> Data Quality</title></FONT>
+        {% load static %}
+<<<<<<< HEAD
+        <link rel="stylesheet" href="../static/style.css" />
+=======
+        <link rel="stylesheet" href="{% static 'style.css' %}" />
+>>>>>>> 1cf1239a7e5c1b9da961763e48d8289e5f0bc15a
+    </head>
+    <body id="Data">
+        <video id="videoBG" poster="poster.JPG" autoplay muted loop>
+            <source src="../static/Lyon.mp4" type="video/mp4">
+        </video>
+        <div class="wrapper">
+                    <img id="Erasme" src="../static/Grand_Lyon.png">
+        <fieldset>
+            <legend> Insérer le document </legend>
+            <div class="input-data">
+                <input id="Insert" type="text" required value="{{ name }}">
+                <div class="underline">
+            </div>
+        <button id="Download" onclick="location.href='script'">Download</button>
+        </fieldset>
+        </wrapper>
+    <div>
+        <fieldset>
+            {% if date_creation %}
+            <div>Date de création: {{ date_creation }}</div>
+            {% endif %}
+            {% if date_modif %}
+            <div>Date de dernière modification: {{ date_modif }} </div>
+            <div>Dimentions: {{ taille }}</div>
+            {% endif %}
+        </fieldset>
+        <fieldset>
+        {% if cellules_vides %}
+        <p>{{ cellules_vides }}</p>
+        {% endif %}
+        <img src="data:image/png;base64,{{ data }}" alt="" height="500" ,width="500">
+        </fieldset>
+        <fieldset>
+        {% for i in doublons %}
+            <p>{{ i }}<br></p>
+        {% endfor %}
+        {% if bool_double %}
+            <button id="suppr_doublons" onclick="location.href='suppr_doublons'">Supprimer les doublons</button>
+        {% endif %}
+        </fieldset>
+        <fieldset>
+         {% for i in specar %}
+            <p>{{ i }}<br></p>
+        {% endfor %}
+
+        {% if bool_spe_char %}
+            <button id="suppr_spe_char" onclick="location.href='suppr_spe_char'">Remplacer les caractères spéciaux</button>
+        {% endif %}
+        </fieldset>
+        <fieldset>
+        {% for i in list_info %}
+            <p>{{ i }}<br></p>
+        {% endfor %}
+        {% if list_info %}
+        <form action="/val_ab" method="post">
+        {% csrf_token %}
+            <label for = "column_select">Selectionner une colonne</label>
+            <div class="select">
+            <select id="column_select" name="column_select">
+            {% for i in list_col %}
+            <option value={{ i }}>{{ i }}</option>
+            {% endfor %}
+            </select><br>
+        </div>
+            <label for="val_min">Valeure Minimale </label>
+            <input id="val_min" type="number" step="any" name="val_min"><br>
+            <label for="val_max">Valeure Maximale </label>
+            <input id="val_max" type="number" step="any" name="val_max"><br>
+            <input id="Ok" type="submit" value="OK">
+        </form>
+        {% for i in ab %}
+            <p>{{ i }}<br></p>
+        {% endfor %}
+        {% endif %}
+        </fieldset>
+        <fieldset>
+            {% if ext == 'ex' %}
+                <button id="open_ex" onclick="location.href='excel'">Ouvrir l'excel</button>
+            {% endif %}
+        </fieldset>
+        <fieldset>
+            {% if ext == 'ex' %}
+            <button id="gen_copy" onclick="location.href='copy'">Ouvrir la copie</button>
+            {% endif %}
+        </fieldset>
+        <button id="retour" onclick="location.href='/'">Home</button>
+
+    </div>
+    </body>
+</html>

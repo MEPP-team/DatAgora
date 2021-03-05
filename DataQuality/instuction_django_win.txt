@@ -1,0 +1,4 @@
+install django, xlrd et openpyxl, pywin32 				
+py -m pip install *nom de l'import*
+Pour lancer le serveur:
+python manage.py runserveur

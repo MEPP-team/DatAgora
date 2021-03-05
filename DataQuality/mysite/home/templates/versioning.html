@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+
+		<FONT face="Calibri"><title> Versioning</title></FONT>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'style.css' %}" />
+    </head>
+    <body id="Data">
+        <video id="videoBG" poster="poster.JPG" autoplay muted loop>
+            <source src="../static/Lyon.mp4" type="video/mp4">
+        </video>
+        <div class="wrapper">
+            <img id="Erasme" src="../static/Grand_Lyon.png">
+            <fieldset>
+
+                <legend> Insérer l'ancienne version du document </legend>
+                <div class="input-data">
+                    <input class="Insert" type="text" required value="{{ path1 }}">
+                    <div class="underline"></div>
+                </div>
+                <button id="Download" onclick="location.href='path1'">Download</button>
+
+            </fieldset>
+            <fieldset>
+                <legend> Insérer la nouvelle version du document </legend>
+                    <div class="input-data">
+                        <input class="Insert" type="text" required value="{{ path2 }}">
+                    </div>
+                        <div class="underline"></div>
+            <button id="Download" onclick="location.href='path2'">Download</button>
+            </fieldset>
+            <fieldset>
+                <form action="/compare" method="post">
+        {% csrf_token %}
+            <label for = "column_select">Selectionner une colonne</label>
+            <div class="select">
+            <select id="column_select" name="column_select">
+            {% for i in list_col %}
+            <option value={{ i }}>{{ i }}</option>
+            {% endfor %}
+            </select><br>
+        </div>
+                <input id="Ok" type="submit" value="OK">
+        </form>
+
+            <p>{{ test }}</p>
+        </fieldset>
+        <button id="retour" onclick="location.href='/'">Home</button>
+
+        </div>
+    </body>
+</html>

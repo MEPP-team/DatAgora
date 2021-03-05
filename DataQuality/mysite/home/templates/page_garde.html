@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+
+        <FONT face="Calibri"><title> Page de garde</title></FONT>
+        {% load static %}
+
+                <link rel="stylesheet" href="{% static 'style.css' %}" />
+    </head>
+
+<body>
+    <video id="videoBG" poster="../static/poster.jpg" autoplay muted loop>
+            <source src="../static/Lyon.mp4" type="video/mp4">
+        </video>
+    <div class="wrapper">
+        <img id="Erasme" src="../static/Grand_Lyon.png">
+        <fieldset>
+                    <button id="analyse" class="navbar" title="Analyser votre fichier pour repérer les anomalies" onclick="location.href='analyse'">Analyse du fichier</button>
+
+                    <button id="versioning" class="navbar" title="Repérer ce qui a changé entre l'ancien et le nouveau fichier" onclick="location.href='versioning'">Versioning</button>
+
+                    <button id="coordonnées" class="navbar" title="Vérifier la véracité de votre jeu de coordonnées: LYON" onclick="location.href='coordonnees_lyon'">Analyse des coordonnées pour LYON et ses régions</button>
+            </fieldset>
+                
+        </div>
+
+    </body>
+</html>
