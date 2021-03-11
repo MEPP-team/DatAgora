@@ -30,7 +30,7 @@ public class CameraCity : MonoBehaviour
     public Vector3 seuilBasBleu;
     public Vector3 seuilHautBleu;
     public int Scale = 40;
-    public GameObject building;
+    public List<GameObject> listTrees = new List<GameObject>();
     public GameObject Detection;
 
 
@@ -58,20 +58,19 @@ public class CameraCity : MonoBehaviour
         //converti
         Image<Gray, byte> imageSeuilLimit = Convert(seuilBas, seuilHaut);
         Image<Gray, byte> imageSeuilLimitBleu = Convert(seuilBasBleu, seuilHautBleu);
-
+        Image<Gray, byte> imageSeuilLimitDilater = Convert(seuilBas, seuilHaut);
         //dilate pour affiner les trais
         var strutElement = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(5, 5), new Point(2, 2));
-        CvInvoke.Dilate(imageSeuilLimit, imageSeuilLimit, strutElement, new Point(2, 2), 1, BorderType.Default, new MCvScalar());
+        CvInvoke.Dilate(imageSeuilLimitDilater, imageSeuilLimit, strutElement, new Point(2, 2), 1, BorderType.Default, new MCvScalar());
 
         var strutElementBlue = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(5, 5), new Point(2, 2));
         CvInvoke.Dilate(imageSeuilLimitBleu, imageSeuilLimitBleu, strutElementBlue, new Point(2, 2), 1, BorderType.Default, new MCvScalar());
 
         //Recognition building
-        buildings = DrawRectangle(imageSeuilLimitBleu, "Building");
-        ListTriangles = DrawTriangle(imageSeuilLimit, "triangle");
-
-        CvInvoke.Imshow("Image seuile POV", imageSeuilLimit.Mat);
-        CvInvoke.Imshow("Image seuile Bleu", imageSeuilLimitBleu.Mat);
+        buildings = DrawRectangle(imageSeuilLimitBleu, "Arbre");
+        //ListTriangles = DrawTriangle(imageSeuilLimit, "triangle");
+        //CvInvoke.Imshow("Image seuile POV", imageSeuilLimit.Mat);
+        CvInvoke.Imshow("Image seuile dilater", imageSeuilLimitDilater.Mat);
         CvInvoke.Imshow("Image", imageMat);
         CvInvoke.WaitKey(24);
     }
@@ -144,7 +143,7 @@ public class CameraCity : MonoBehaviour
                 foreach (RotatedRect box in boxList)
                 {
                     CvInvoke.Polylines(imageMat, Array.ConvertAll(box.GetVertices(), Point.Round), true,
-                        new Bgr(System.Drawing.Color.Blue).MCvScalar, 2);
+                        new Bgr(System.Drawing.Color.Green).MCvScalar, 2);
                     var moments = CvInvoke.Moments(contours[i]);
                     int x = (int)(moments.M10 / moments.M00);
                     int y = (int)(moments.M01 / moments.M00);
@@ -202,8 +201,9 @@ public class CameraCity : MonoBehaviour
 
         for (int i = 0; i < buildings.Count; i++)
         {
-            GameObject go = Instantiate(building, new Vector3(Scale * buildings[i].Center.X / 600, 1, Scale * buildings[i].Center.Y / 600), Quaternion.identity);
-            go.transform.localScale = new Vector3(Scale * buildings[i].Size.Width / 600, 1, Scale * buildings[i].Size.Height / 600);
+            
+            GameObject go = Instantiate(listTrees[UnityEngine.Random.Range(0,listTrees.Count)], new Vector3(Scale * buildings[i].Center.X / 600, 1, Scale * buildings[i].Center.Y / 600), Quaternion.identity);
+            go.transform.localScale = new Vector3(Scale * buildings[i].Size.Width / 1000, 1, Scale * buildings[i].Size.Height / 1000);
             go.transform.Rotate(new Vector3(0,1,0), buildings[i].Angle);
             listBuilding.Add(go);
         }
