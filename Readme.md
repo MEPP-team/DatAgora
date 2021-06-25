@@ -2,7 +2,7 @@
 
 More details about DatAgora on its [official website](https://projet.liris.cnrs.fr/vcity/DatAgora/)
 
-## List of developed projects : 
+## Available components : 
 
  - [UD-Legonizer](https://github.com/VCityTeam/UD-Legonizer) : Ce projet a pour but de recuperer des données géographiques de les traitées pour obtenir une représentation en légo des données.
  
